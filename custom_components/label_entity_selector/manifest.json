@@ -1,0 +1,10 @@
+{
+  "domain": "label_entity_selector",
+  "name": "Label Entity Selector",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://github.com/storkoxa/ha-label-entity-selector",
+  "codeowners": [],
+  "requirements": [],
+  "iot_class": "local_push"
+}

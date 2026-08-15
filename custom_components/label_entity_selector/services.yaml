@@ -1,0 +1,37 @@
+add_label:
+  name: Add label
+  description: Add a Home Assistant label to one or more entities via the backend registry.
+  fields:
+    entity_id:
+      name: Entity
+      description: Entity or entities to modify.
+      required: true
+      selector:
+        entity:
+          multiple: true
+
+    label_id:
+      name: Label ID
+      description: Home Assistant label ID to add (e.g. alarm_home).
+      required: true
+      selector:
+        text:
+
+remove_label:
+  name: Remove label
+  description: Remove a Home Assistant label from one or more entities via the backend registry.
+  fields:
+    entity_id:
+      name: Entity
+      description: Entity or entities to modify.
+      required: true
+      selector:
+        entity:
+          multiple: true
+
+    label_id:
+      name: Label ID
+      description: Home Assistant label ID to remove (e.g. alarm_home).
+      required: true
+      selector:
+        text:
