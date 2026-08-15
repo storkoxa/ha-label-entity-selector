@@ -15,6 +15,9 @@ A powerful two-column dashboard card and backend integration for Home Assistant 
 ---
 
 ## Installation
+[![HACS Default](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=storkoxa&repository=ha-label-entity-selector&category=plugin)
+
 
 ### 1. Backend Integration (Manual)
 1. Copy the `custom_components/label_entity_selector` folder into your Home Assistant `config/custom_components/` directory.
