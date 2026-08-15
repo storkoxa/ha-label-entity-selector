@@ -3,7 +3,7 @@
   "render_readme": true,
   "country": ["IE", "US", "GB"],
   "homeassistant": "2024.1.0",
-  "filename": "label-entity-selector-card.js",
+  "filename": "card/label-entity-selector-card.js",
   "content_in_root": false,
   "zip_release": true
 }
