@@ -1,5 +1,6 @@
 {
   "name": "Label Entity Selector",
+  "filename": "card/label-entity-selector-card.js",
   "render_readme": true,
   "country": ["IE", "US", "GB"],
   "homeassistant": "2024.1.0",
