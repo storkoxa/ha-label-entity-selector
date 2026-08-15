@@ -7,7 +7,11 @@ from homeassistant.config_entries import ConfigEntry
 DOMAIN = "label_entity_selector"
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
-    """Set up the Label Entity Selector component."""
+    """Set up the Label Entity Selector component from YAML (optional)."""
+    return True
+
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Set up Label Entity Selector from a config entry."""
 
     async def handle_add_label(call: ServiceCall) -> None:
         """Add a label to entities via Entity Registry."""
@@ -43,15 +47,15 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
                 new_labels.discard(label_id)
                 registry.async_update_entity(entity_id, labels=new_labels)
 
+    # Register services under the entry setup
     hass.services.async_register(DOMAIN, "add_label", handle_add_label)
     hass.services.async_register(DOMAIN, "remove_label", handle_remove_label)
 
     return True
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up from a config entry."""
-    return True
-
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
+    # Optional: Clean up services on unload if desired
+    hass.services.async_remove(DOMAIN, "add_label")
+    hass.services.async_remove(DOMAIN, "remove_label")
     return True
