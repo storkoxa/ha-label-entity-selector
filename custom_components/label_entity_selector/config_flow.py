@@ -23,3 +23,4 @@ class LabelEntitySelectorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             )
 
         return self.async_show_form(step_id="user")
+
