@@ -176,10 +176,93 @@ class LabelEntitySelectorCard extends HTMLElement {
       </div>
     `;
   }
+
+  // Required for UI Editor
+  static getConfigElement() {
+    return document.createElement("label-entity-selector-card-editor");
+  }
+
+  static getStubConfig() {
+    return {
+      title: "Alarm Setup",
+      all_label: "alarm_sensor",
+      selected_label: "alarm_home",
+    };
+  }
 }
 
+// Visual Form Editor Class for Lovelace UI popup
+class LabelEntitySelectorCardEditor extends HTMLElement {
+  setConfig(config) {
+    this._config = config;
+    this.render();
+  }
+
+  render() {
+    if (!this.shadowRoot) {
+      this.attachShadow({ mode: "open" });
+    }
+    this.shadowRoot.innerHTML = `
+      <style>
+        .form { display: flex; flex-direction: column; gap: 16px; padding: 8px; }
+        .row { display: flex; flex-direction: column; gap: 6px; }
+        label { font-weight: 500; font-size: 0.9em; color: var(--secondary-text-color); }
+        input {
+          padding: 10px 12px;
+          border-radius: 8px;
+          border: 1px solid var(--divider-color);
+          background: var(--card-background-color);
+          color: var(--primary-text-color);
+          font-size: 1em;
+          outline: none;
+        }
+      </style>
+      <div class="form">
+        <div class="row">
+          <label>Card Title</label>
+          <input type="text" id="title" value="${this._config?.title || ""}" />
+        </div>
+        <div class="row">
+          <label>Subtitle</label>
+          <input type="text" id="subtitle" value="${this._config?.subtitle || ""}" />
+        </div>
+        <div class="row">
+          <label>Base Pool Label ID (e.g., alarm_sensor)</label>
+          <input type="text" id="all_label" value="${this._config?.all_label || ""}" />
+        </div>
+        <div class="row">
+          <label>Selected Toggle Label ID (e.g., alarm_home)</label>
+          <input type="text" id="selected_label" value="${this._config?.selected_label || ""}" />
+        </div>
+      </div>
+    `;
+
+    this.shadowRoot.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("input", (e) => {
+        if (!this._config) return;
+        const newConfig = {
+          ...this._config,
+          [e.target.id]: e.target.value,
+        };
+        this._config = newConfig;
+        const event = new CustomEvent("config-changed", {
+          detail: { config: newConfig },
+          bubbles: true,
+          composed: true,
+        });
+        this.dispatchEvent(event);
+      });
+    });
+  }
+}
+
+// Register both custom elements safely
 if (!customElements.get("label-entity-selector-card")) {
   customElements.define("label-entity-selector-card", LabelEntitySelectorCard);
+}
+
+if (!customElements.get("label-entity-selector-card-editor")) {
+  customElements.define("label-entity-selector-card-editor", LabelEntitySelectorCardEditor);
 }
 
 window.customCards = window.customCards || [];
